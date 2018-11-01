@@ -1,12 +1,12 @@
 {
-    "name": "dsiddharth2/php-zxing",
+    "name": "mindongji/php-zxing",
     "description": "Wrapper for zxing using php",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Siddharth",
-            "email": "dsiddharth2@gmail.com"
+            "name": "mindong.ji",
+            "email": "285821477@qq.com"
         }
     ],
     "autoload": {

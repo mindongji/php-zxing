@@ -32,10 +32,11 @@ authors:
 * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 * OTHER DEALINGS IN THE SOFTWARE.
 */
+
 namespace PHPZxing;
 
-class PHPZxingBase  {
-    
+class PHPZxingBase {
+
     // name of the javase.jar file located in /src/bin directory
     private $_JAVASE_PATH = 'javase-3.3.3.jar';
 
@@ -48,20 +49,26 @@ class PHPZxingBase  {
     // location of java in your machine
     private $_JAVA_PATH = "/usr/bin/java";
 
+    private $_ZXING_COMMAND_PATH = 'zxing-command.jar';
+
     public function getJavaPath() {
         return $this->_JAVA_PATH;
     }
 
     public function getJARPath() {
-        return dirname(__DIR__) . DIRECTORY_SEPARATOR  . 'bin' . DIRECTORY_SEPARATOR . $this->_JAVASE_PATH;
+        return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . $this->_JAVASE_PATH;
     }
 
     public function getCorePAth() {
-        return dirname(__DIR__) . DIRECTORY_SEPARATOR  . 'bin' . DIRECTORY_SEPARATOR . $this->_CORE_PATH;
+        return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . $this->_CORE_PATH;
     }
 
     public function getJcommanderPath() {
-        return dirname(__DIR__) . DIRECTORY_SEPARATOR  . 'bin' . DIRECTORY_SEPARATOR . $this->_JCOMMANDER_PATH;
+        return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . $this->_JCOMMANDER_PATH;
+    }
+
+    public function getZXingCommandPath() {
+        return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . $this->_ZXING_COMMAND_PATH;
     }
 
     /**
