@@ -205,7 +205,8 @@ class PHPZxingDecoder extends PHPZxingBase {
 
     /**
      * Send an image and returns an Object of ZxingImage
-     * @return    ZxingImage
+     * @param null $image
+     * @return array|mixed|null
      */
     public function decode($image = null) {
         try {
@@ -245,4 +246,16 @@ class PHPZxingDecoder extends PHPZxingBase {
             echo $e->getMessage();
         }
     }
+
+    public function decodeV2($path) {
+        $command = "";
+        $command = $command . $this->getJavaPath() . $this->SPACE . "-jar" . $this->SPACE;
+        $command = $command . $this->getQrCodeCommandPath() . $this->SPACE . $path;
+        exec($command, $output);
+        if (!$output) {
+            return new ZxingBarNotFound($path, 0, '');
+        }
+        return new ZxingImage($path, current($output), '', '');
+    }
+
 } // End Class

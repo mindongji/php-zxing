@@ -47,11 +47,33 @@ class PHPZxingBase {
     private $_JCOMMANDER_PATH = "jcommander-1.72.jar";
 
     // location of java in your machine
-    private $_JAVA_PATH = "/usr/bin/java";
+    private $_JAVA_PATH = null; //"/usr/bin/java";
 
     private $_ZXING_COMMAND_PATH = 'zxing-command.jar';
 
+    private $_QRCODE_COMMAND_PATH = 'qrcode-cui.jar';
+
+    public function findJavaPath() {
+        //prepare java path
+        $isWin = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+        $command = $isWin ? 'where' : 'which';
+        $command = "$command java";
+        $path = trim(shell_exec($command));
+        $path = realpath($path);
+        if ($path) {
+            $index = strpos($path, ' ');
+            if ($index !== false) {
+                $path = '"' . $path . '"';
+            }
+            return $path;
+        }
+        return 'java';
+    }
+
     public function getJavaPath() {
+        if (!$this->_JAVA_PATH) {
+            $this->_JAVA_PATH = $this->findJavaPath();
+        }
         return $this->_JAVA_PATH;
     }
 
@@ -71,8 +93,13 @@ class PHPZxingBase {
         return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . $this->_ZXING_COMMAND_PATH;
     }
 
+    public function getQrCodeCommandPath() {
+        return dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . $this->_QRCODE_COMMAND_PATH;
+    }
+
     /**
-     * Set the default java path which we will use for decoding
+     *  Set the default java path which we will use for decoding
+     * @param string $javaPath
      */
     public function setJavaPath($javaPath = "/usr/bin/java") {
         $this->_JAVA_PATH = $javaPath;

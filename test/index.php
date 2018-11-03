@@ -15,12 +15,25 @@ $decoder = new PHPZxingDecoder();
 
 $dir = __DIR__ . '/image';
 $files = array_diff(scandir($dir), array('.', '..'));
+$files = array_filter($files, function ($path) {
+    $pattern = '/\.(jpg|jpeg|gif|png)$/';
+    $isImage = preg_match($pattern, $path);
+    if ($isImage) {
+        return $path;
+    }
+    return null;
+});
 
 foreach ($files as $file) {
     $path = "$dir/$file";
     $result = $decoder->decode($path);
-    if (!$result->isFound()) {
-        echo "$path, [decode fail]";
+    //$result = null;
+    if (!$result || !$result->isFound()) {
+        echo "\ndecode by  decodeV2 function: path=$path\n";
+        $result = $decoder->decodeV2($path);
+    }
+    if (!$result || !$result->isFound()) {
+        echo "$path, [decode fail]\n";
         continue;
     }
     $format = $result->getFormat();
